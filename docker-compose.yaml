@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  prometheus:
+    image: prom/prometheus:v2.1.0
+    volumes:
+       - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+    command:
+     - '--config.file=/etc/prometheus/prometheus.yaml'
+    ports:
+     - '9090:9090'
+
   free5gc-upf:
     container_name: upf
     build:
@@ -270,4 +279,6 @@ networks:
       com.docker.network.bridge.name: br-free5gc
 
 volumes:
-  dbdata:
+  prometheus_data: {}
+  grafana_data: {}
+  dbdata: {}
