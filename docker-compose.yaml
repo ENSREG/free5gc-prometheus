@@ -9,6 +9,10 @@ services:
      - '--config.file=/etc/prometheus/prometheus.yaml'
     ports:
      - '9090:9090'
+    networks:
+      privnet:
+        aliases:
+        - prom.free5gc.org
 
   free5gc-upf:
     container_name: upf
@@ -70,6 +74,8 @@ services:
     command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
+    ports:
+     - '3000:3000'
     volumes:
       - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml
     environment:

@@ -20,6 +20,12 @@ RUN apt-get clean
 RUN cd $GOPATH/src \
     && git clone --recursive -b v3.2.1 -j `nproc` https://github.com/free5gc/free5gc.git
 
+# prometheus branch of AMF
+RUN cd $GOPATH/src/free5gc/NFs/amf \
+    && git remote add ian https://github.com/ianchen0119/amf.git \
+    && git fetch ian \
+    && git checkout ian/feat/prom
+
 # Build Free5GC NFs & WebUI
 RUN cd $GOPATH/src/free5gc \
     && make all
